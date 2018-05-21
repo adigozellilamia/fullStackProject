@@ -1,0 +1,17 @@
+.navbar-display-block {
+    display: block !important;
+    text-align: center;
+}
+.navbar-display-none {
+    display: none !important;
+}
+
+.owl-nav {
+    display:none !important;
+}
+.slider-icon {
+    margin: 0px auto !important;
+}
+.service {
+    padding-bottom:0px;
+}

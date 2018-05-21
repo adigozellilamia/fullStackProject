@@ -1,0 +1,94 @@
+﻿@using Black_friday.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="_grid">
+    <div class="grid">
+        <div class="overlay"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="grid-text padding-bt-100">
+                        <h3>
+                            <span>
+                                coupons
+                            </span>
+                        </h3>
+                        <ul class="grid-list">
+                            <li>
+                                <a href="#">home</a>
+                            </li>
+                            <span>/</span>
+                            <li>
+                                <a href="#">coupons grid</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<section class="coupons trending coupon-grid">
+    <div class="container">
+        <div class="trending-bottom">
+            <div class="row">
+              @foreach (product item in ViewBag.coupons)
+              {
+                <div class="col-md-4 col-sm-4 col-xs-12 margin-b-30">
+                    <div>
+                        <div class="bottom-content">
+                            <div class="content-image">
+                                <img src="~/Public/img/@item.image.name" alt="">
+                            </div>
+                            <div class="content-text">
+                                <div class="text-scissors">
+                                    <span class="img1">
+                                        <img src="~/Public/img/1.png" alt="">
+                                    </span>
+                                    <span class="img2">
+                                        <img src="~/Public/img/2.png" alt="">
+                                    </span>
+                                </div>
+                                <div class="text-upper">
+                                    <a href="">@Html.Raw(@item.description.title)</a>
+                                    
+                                </div>
+                                <div class="text-store">
+                                    <p>
+                                        Stores -
+                                        <span>Amazon,Snapdeal, Yepme</span>
+                                    </p>
+                                </div>
+                                <div class="text-date">
+                                    <p>
+                                        Expires:
+                                        <span>25-11-2017</span>
+                                    </p>
+                                </div>
+                                <div class="get-code-button">
+                                    <a href="">
+                                        5566778
+                                        <span>Get Code</span>
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+              }
+               
+
+            </div>
+        </div>
+
+    </div>
+</section>
+

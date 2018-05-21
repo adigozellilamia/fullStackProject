@@ -1,0 +1,289 @@
+﻿@using Black_friday.Models;
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="_grid">
+    <div class="grid">
+        <div class="overlay"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="grid-text padding-bt-100">
+                        <h3>
+                            <span>
+                                Blog details
+                            </span>
+                        </h3>
+                        <ul class="grid-list">
+                            <li>
+                                <a href="#">home</a>
+                            </li>
+                            <span>/</span>
+                            <li>
+                                <a href="#">blog details</a>
+                            </li>
+                            <span>/</span>
+                            <li>
+                                <a href="#">sidebar</a>
+                            </li>
+                      
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<section class="coupon-content padding-bt-100 deals-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="search">
+                            <div class="search-input">
+                                <input type="text" placeholder="search">
+                                <button type="submit">
+                                    <a href="#">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </a>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="blog margin-t-30">
+                            <div class="slider-blog">
+                                <div class="owl-carousel owl-theme">
+                                    @foreach (product item in ViewBag.trending)
+                                    {
+                                       
+                                            <div>
+
+                                                <img src="~/Public/img/@item.image.name" alt="">
+
+                                            </div>
+                                        
+
+
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="blog-text">
+                            <p>Colorful Furnimart With High Up To 70% Discount On All Stores</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="leatest-tweet margin-t-20">
+                            <h4 class="margin-b-10">
+                                <a href="#">Latest tweets</a>
+                            </h4>
+                            <h5 class="margin-b-5">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                                @@Blackfriday.com
+                            </h5>
+                            <p>Lorem ipsum dolor sit acons tuadip iscing elit Fusce</p>
+                            <span>www.itg.Com</span>
+                            <p>4 hour ago</p>
+                            <h4 class="margin-b-10 margin-t-30">
+                                <a href="#">Latest tweets</a>
+                            </h4>
+                            <h5 class="margin-b-5">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                                @@Blackfriday.com
+                            </h5>
+                            <p>Lorem ipsum dolor sit acons tuadip iscing elit Fusce</p>
+                            <span>www.itg.Com</span>
+                            <p>4 hour ago</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="tending-offers margin-t-20">
+                            <h4 class="margin-b-10">
+                                <a href="#">Trending Offers</a>
+                            </h4>
+                            
+                           
+                                <div class="tending margin-t-10">
+                                    <div class="row">
+                                     @foreach (product item in ViewBag.trend_details)
+                                     {
+                                        <div class="col-md-4 col-sm-4 col-4 col-padding-5px">
+                                            <div class="tending-image">
+                                                <img src="~/Public/img/@item.image.name" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-8 col-padding-5px">
+                                            <div class="tending-text">
+                                                <h5>
+                                                    @Html.Raw(item.description.about);
+                                                </h5>
+                                                <h5 class="green">
+                                                    <a href="#">Read More</a>
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                        
+                                   
+                                        
+                                     }
+                                        </div>
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="tags margin-t-20">
+                            <h4 class="margin-b-10">
+                                <a href="#">popular tags</a>
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="#">art</a>
+                                </li>
+                                <li>
+                                    <a href="#">paint</a>
+                                </li>
+                                <li>
+                                    <a href="#">floor</a>
+                                </li>
+                                <li>
+                                    <a href="#">exterior</a>
+                                </li>
+                                <li>
+                                    <a href="#">interrior</a>
+                                </li>
+                                <li>
+                                    <a href="#">paint</a>
+                                </li>
+                                <li>
+                                    <a href="#">floor</a>
+                                </li>
+                                <li>
+                                    <a href="#">industry</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="coupon-logo">
+                            <img src="~/Public/img/blog.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="blog-details-text">
+                            <h4 class="margin-b-10">@Html.Raw(ViewBag.blog.description.title)</h4>
+                           
+                            <ul class="font margin-b-10">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                                        MAY 24, 2015
+                                    </a>
+                                </li>
+                                <li class="margin-l-10">
+                                    <a href="#">
+                                        <i class="fa fa-comment" aria-hidden="true"></i>
+                                        comments
+                                    </a>
+                                </li>
+                            </ul>
+                            <p>
+                                @Html.Raw(ViewBag.blog.description.about)
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="alone-text margin-t-30">
+                            <p>
+                                @Html.Raw(ViewBag.blog.description.text)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="sosial margin-t-30">
+                            <h3>
+                                share this
+                            </h3>
+                            <ul class="margin-t-20">
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="tittle margin-b-30">
+                            <h4 class="margin-t-20">add comments</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-xs-12 margin-b-30">
+                                    <input type="text" name="name" placeholder="name">
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12 margin-b-30">
+                                    <input type="text" name="email" placeholder="email">
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 margin-b-30">
+                                    <input type="text" name="subject" placeholder="subject">
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 margin-b-30">
+
+                                    <textarea type="text" name="message" rows="5" placeholder="message"></textarea>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 margin-b-30">
+                                    <div class="subcribe-btn">
+                                        <button type="submit" class="subcribe">subcribes now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

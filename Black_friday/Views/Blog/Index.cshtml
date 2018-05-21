@@ -1,0 +1,103 @@
+﻿@using Black_friday.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="_grid">
+    <div class="grid">
+        <div class="overlay"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="grid-text padding-bt-100">
+                        <h3>
+                            <span>
+                                blog
+                            </span>
+                        </h3>
+                        <ul class="grid-list">
+                            <li>
+                                <a href="#">home</a>
+                            </li>
+                            <span>/</span>
+                            <li>
+                                <a href="#">blog grid</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<section class="latest-blog trending">
+    <div class="container">
+        <div class="trending-bottom">
+
+            <div class="row">
+               @foreach (product item in ViewBag.BlogProduct)
+               {
+                <div class="col-md-4 col-sm-4 col-xs-12 margin-b-30">
+                    <div>
+                        <div class="bottom-content">
+                            <div class="content-image">
+                                <img src="~/Public/img/@item.image.name" alt="">
+                            </div>
+                            <div class="content-text">
+                                <div class="text-upper">
+                                    <a href="">Post Title Here</a>
+                                </div>
+                                <div class="text-font">
+                                    <ul>
+                                        <li>
+                                            <a href="">
+                                                <div class="font-icon">
+                                                    <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="font-text">
+                                                    <p>May 24,2016</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <div class="font-icon">
+                                                    <i class="fa fa-comment" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="font-text">
+                                                    <p>COMMENTS</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="text-paragraph">
+                                    <p>
+                                        @Html.Raw(item.description.about)
+                                    </p>
+                                   
+                                </div>
+                                <div class="read-more">
+                                    <a href="@Url.Action("Blog_details","blog", new { id = item.id })">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               }
+
+                
+
+            </div>
+        </div>
+    
+    </div>
+</section>
+
+
+

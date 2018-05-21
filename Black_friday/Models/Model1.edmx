@@ -1,0 +1,825 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Black_fridayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="icon" Type="nvarchar" MaxLength="50" />
+          <Property Name="color" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="descriptions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="250" />
+          <Property Name="about" Type="nvarchar(max)" />
+          <Property Name="text" Type="text" />
+        </EntityType>
+        <EntityType Name="group_products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="group_sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="images">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="page" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="product_to_sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="sale_id" Type="int" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="group_id" Type="int" />
+          <Property Name="category_id" Type="int" />
+          <Property Name="image_id" Type="int" />
+          <Property Name="price" Type="float" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="description_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="group_id" Type="int" />
+          <Property Name="interest" Type="int" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="about" Type="text" />
+          <Property Name="image_id" Type="int" />
+        </EntityType>
+        <EntityType Name="stores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="stores_to_sales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="store_id" Type="int" />
+          <Property Name="sales_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user_admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="nvarchar(max)" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar(max)" />
+          <Property Name="type" Type="int" />
+        </EntityType>
+        <Association Name="FK_product_to_sale_products">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="product_to_sale" Type="Self.product_to_sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product_to_sale">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_to_sale_sales">
+          <End Role="sales" Type="Self.sales" Multiplicity="0..1" />
+          <End Role="product_to_sale" Type="Self.product_to_sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product_to_sale">
+              <PropertyRef Name="sale_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_descriptions">
+          <End Role="descriptions" Type="Self.descriptions" Multiplicity="0..1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="descriptions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="description_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_images">
+          <End Role="images" Type="Self.images" Multiplicity="0..1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="images">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="image_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_Name">
+          <End Role="group_products" Type="Self.group_products" Multiplicity="0..1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group_products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_group_sale">
+          <End Role="group_sale" Type="Self.group_sale" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group_sale">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_images">
+          <End Role="images" Type="Self.images" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="images">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="image_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stores_to_sales_sales">
+          <End Role="sales" Type="Self.sales" Multiplicity="0..1" />
+          <End Role="stores_to_sales" Type="Self.stores_to_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stores_to_sales">
+              <PropertyRef Name="sales_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stores_to_sales_stores">
+          <End Role="stores" Type="Self.stores" Multiplicity="0..1" />
+          <End Role="stores_to_sales" Type="Self.stores_to_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stores_to_sales">
+              <PropertyRef Name="store_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stores_users">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="stores" Type="Self.stores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stores">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Black_fridayModelStoreContainer">
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="descriptions" EntityType="Self.descriptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="group_products" EntityType="Self.group_products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="group_sale" EntityType="Self.group_sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="images" EntityType="Self.images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_to_sale" EntityType="Self.product_to_sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sales" EntityType="Self.sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stores" EntityType="Self.stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stores_to_sales" EntityType="Self.stores_to_sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_admin" EntityType="Self.user_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_product_to_sale_products" Association="Self.FK_product_to_sale_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="product_to_sale" EntitySet="product_to_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_to_sale_sales" Association="Self.FK_product_to_sale_sales">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="product_to_sale" EntitySet="product_to_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_categories" Association="Self.FK_products_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_descriptions" Association="Self.FK_products_descriptions">
+            <End Role="descriptions" EntitySet="descriptions" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_images" Association="Self.FK_products_images">
+            <End Role="images" EntitySet="images" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_Name" Association="Self.FK_products_Name">
+            <End Role="group_products" EntitySet="group_products" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_group_sale" Association="Self.FK_sales_group_sale">
+            <End Role="group_sale" EntitySet="group_sale" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_images" Association="Self.FK_sales_images">
+            <End Role="images" EntitySet="images" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stores_to_sales_sales" Association="Self.FK_stores_to_sales_sales">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="stores_to_sales" EntitySet="stores_to_sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stores_to_sales_stores" Association="Self.FK_stores_to_sales_stores">
+            <End Role="stores" EntitySet="stores" />
+            <End Role="stores_to_sales" EntitySet="stores_to_sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stores_users" Association="Self.FK_stores_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="stores" EntitySet="stores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Black_fridayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.FK_products_categories" FromRole="categories" ToRole="products" />
+        </EntityType>
+        <EntityType Name="description">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_products_descriptions" FromRole="descriptions" ToRole="products" />
+        </EntityType>
+        <EntityType Name="group_products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.FK_products_Name" FromRole="group_products" ToRole="products" />
+        </EntityType>
+        <EntityType Name="group_sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sales" Relationship="Self.FK_sales_group_sale" FromRole="group_sale" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="page" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.FK_products_images" FromRole="images" ToRole="products" />
+          <NavigationProperty Name="sales" Relationship="Self.FK_sales_images" FromRole="images" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="product_to_sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="sale_id" Type="Int32" />
+          <NavigationProperty Name="product" Relationship="Self.FK_product_to_sale_products" FromRole="product_to_sale" ToRole="products" />
+          <NavigationProperty Name="sale" Relationship="Self.FK_product_to_sale_sales" FromRole="product_to_sale" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="group_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="image_id" Type="Int32" />
+          <Property Name="price" Type="Double" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description_id" Type="Int32" />
+          <NavigationProperty Name="category" Relationship="Self.FK_products_categories" FromRole="products" ToRole="categories" />
+          <NavigationProperty Name="description" Relationship="Self.FK_products_descriptions" FromRole="products" ToRole="descriptions" />
+          <NavigationProperty Name="group_products" Relationship="Self.FK_products_Name" FromRole="products" ToRole="group_products" />
+          <NavigationProperty Name="image" Relationship="Self.FK_products_images" FromRole="products" ToRole="images" />
+          <NavigationProperty Name="product_to_sale" Relationship="Self.FK_product_to_sale_products" FromRole="products" ToRole="product_to_sale" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="group_id" Type="Int32" />
+          <Property Name="interest" Type="Int32" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="about" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image_id" Type="Int32" />
+          <NavigationProperty Name="group_sale" Relationship="Self.FK_sales_group_sale" FromRole="sales" ToRole="group_sale" />
+          <NavigationProperty Name="image" Relationship="Self.FK_sales_images" FromRole="sales" ToRole="images" />
+          <NavigationProperty Name="product_to_sale" Relationship="Self.FK_product_to_sale_sales" FromRole="sales" ToRole="product_to_sale" />
+          <NavigationProperty Name="stores_to_sales" Relationship="Self.FK_stores_to_sales_sales" FromRole="sales" ToRole="stores_to_sales" />
+        </EntityType>
+        <EntityType Name="store">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="stores_to_sales" Relationship="Self.FK_stores_to_sales_stores" FromRole="stores" ToRole="stores_to_sales" />
+          <NavigationProperty Name="user" Relationship="Self.FK_stores_users" FromRole="stores" ToRole="users" />
+        </EntityType>
+        <EntityType Name="stores_to_sales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="store_id" Type="Int32" />
+          <Property Name="sales_id" Type="Int32" />
+          <NavigationProperty Name="sale" Relationship="Self.FK_stores_to_sales_sales" FromRole="stores_to_sales" ToRole="sales" />
+          <NavigationProperty Name="store" Relationship="Self.FK_stores_to_sales_stores" FromRole="stores_to_sales" ToRole="stores" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user_admin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int32" />
+          <NavigationProperty Name="stores" Relationship="Self.FK_stores_users" FromRole="users" ToRole="stores" />
+        </EntityType>
+        <Association Name="FK_products_categories">
+          <End Role="categories" Type="Self.category" Multiplicity="0..1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_descriptions">
+          <End Role="descriptions" Type="Self.description" Multiplicity="0..1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="descriptions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="description_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_Name">
+          <End Role="group_products" Type="Self.group_products" Multiplicity="0..1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group_products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_group_sale">
+          <End Role="group_sale" Type="Self.group_sale" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group_sale">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_images">
+          <End Role="images" Type="Self.image" Multiplicity="0..1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="images">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="image_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_images">
+          <End Role="images" Type="Self.image" Multiplicity="0..1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="images">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="image_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_to_sale_products">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="product_to_sale" Type="Self.product_to_sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product_to_sale">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_to_sale_sales">
+          <End Role="sales" Type="Self.sale" Multiplicity="0..1" />
+          <End Role="product_to_sale" Type="Self.product_to_sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product_to_sale">
+              <PropertyRef Name="sale_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stores_to_sales_sales">
+          <End Role="sales" Type="Self.sale" Multiplicity="0..1" />
+          <End Role="stores_to_sales" Type="Self.stores_to_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stores_to_sales">
+              <PropertyRef Name="sales_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stores_to_sales_stores">
+          <End Role="stores" Type="Self.store" Multiplicity="0..1" />
+          <End Role="stores_to_sales" Type="Self.stores_to_sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stores_to_sales">
+              <PropertyRef Name="store_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stores_users">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="stores" Type="Self.store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stores">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Black_fridayEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="descriptions" EntityType="Self.description" />
+          <EntitySet Name="group_products" EntityType="Self.group_products" />
+          <EntitySet Name="group_sale" EntityType="Self.group_sale" />
+          <EntitySet Name="images" EntityType="Self.image" />
+          <EntitySet Name="product_to_sale" EntityType="Self.product_to_sale" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="sales" EntityType="Self.sale" />
+          <EntitySet Name="stores" EntityType="Self.store" />
+          <EntitySet Name="stores_to_sales" EntityType="Self.stores_to_sales" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="user_admin" EntityType="Self.user_admin" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_products_categories" Association="Self.FK_products_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_descriptions" Association="Self.FK_products_descriptions">
+            <End Role="descriptions" EntitySet="descriptions" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_Name" Association="Self.FK_products_Name">
+            <End Role="group_products" EntitySet="group_products" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_group_sale" Association="Self.FK_sales_group_sale">
+            <End Role="group_sale" EntitySet="group_sale" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_images" Association="Self.FK_products_images">
+            <End Role="images" EntitySet="images" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_images" Association="Self.FK_sales_images">
+            <End Role="images" EntitySet="images" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_to_sale_products" Association="Self.FK_product_to_sale_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="product_to_sale" EntitySet="product_to_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_to_sale_sales" Association="Self.FK_product_to_sale_sales">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="product_to_sale" EntitySet="product_to_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stores_to_sales_sales" Association="Self.FK_stores_to_sales_sales">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="stores_to_sales" EntitySet="stores_to_sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stores_to_sales_stores" Association="Self.FK_stores_to_sales_stores">
+            <End Role="stores" EntitySet="stores" />
+            <End Role="stores_to_sales" EntitySet="stores_to_sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stores_users" Association="Self.FK_stores_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="stores" EntitySet="stores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Black_fridayModelStoreContainer" CdmEntityContainer="Black_fridayEntities2">
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="Black_fridayModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="color" ColumnName="color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="descriptions">
+            <EntityTypeMapping TypeName="Black_fridayModel.description">
+              <MappingFragment StoreEntitySet="descriptions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="about" ColumnName="about" />
+                <ScalarProperty Name="text" ColumnName="text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="group_products">
+            <EntityTypeMapping TypeName="Black_fridayModel.group_products">
+              <MappingFragment StoreEntitySet="group_products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="group_sale">
+            <EntityTypeMapping TypeName="Black_fridayModel.group_sale">
+              <MappingFragment StoreEntitySet="group_sale">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="images">
+            <EntityTypeMapping TypeName="Black_fridayModel.image">
+              <MappingFragment StoreEntitySet="images">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="page" ColumnName="page" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_to_sale">
+            <EntityTypeMapping TypeName="Black_fridayModel.product_to_sale">
+              <MappingFragment StoreEntitySet="product_to_sale">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="sale_id" ColumnName="sale_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="Black_fridayModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="image_id" ColumnName="image_id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="description_id" ColumnName="description_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales">
+            <EntityTypeMapping TypeName="Black_fridayModel.sale">
+              <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="interest" ColumnName="interest" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="about" ColumnName="about" />
+                <ScalarProperty Name="image_id" ColumnName="image_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stores">
+            <EntityTypeMapping TypeName="Black_fridayModel.store">
+              <MappingFragment StoreEntitySet="stores">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stores_to_sales">
+            <EntityTypeMapping TypeName="Black_fridayModel.stores_to_sales">
+              <MappingFragment StoreEntitySet="stores_to_sales">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="store_id" ColumnName="store_id" />
+                <ScalarProperty Name="sales_id" ColumnName="sales_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Black_fridayModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_admin">
+            <EntityTypeMapping TypeName="Black_fridayModel.user_admin">
+              <MappingFragment StoreEntitySet="user_admin">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Black_fridayModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,102 @@
+﻿@using Black_friday.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="_grid">
+    <div class="grid">
+        <div class="overlay"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="grid-text padding-bt-100">
+                        <h3>
+                            <span>
+                                deals
+                            </span>
+                        </h3>
+                        <ul class="grid-list">
+                            <li>
+                                <a href="#">home</a>
+                            </li>
+                            <span>/</span>
+                            <li>
+                                <a href="#">deals grid</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<section class="margin-t-100 ">
+    <div class="latest-deals section-box padding-b-100">
+        <div class="container">
+            <div class="row">
+                @foreach (product item in ViewBag.latestDeals)
+                {
+                    <div class="col-md-4 col-sm-12 col-xs-12 margin-b-30">
+                        <div class="box-a">
+                            <div class="img margin-b-20">
+                                <img src="~/Public/img/@item.image.name" alt="">
+                            </div>
+                            <div class="box-text">
+                                <div class="box-detail">
+                                    <div class="">
+                                        <h4 class="margin-b-20">
+                                            <a href="@Url.Action("deals_single","deals", new { id = item.id })">title goes here</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="stars">
+                                    <ul class="stars">
+                                        <li>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star grey-icon" aria-hidden="true"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="text">
+                                    @Html.Raw(item.description.about)
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="box-detail"></div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+
+
+
+
+
